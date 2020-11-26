@@ -57,9 +57,9 @@ uint8_t LED1pin = 2;
 
 
 
-const int writeBit0 = 16;
-const int writeBit1 = 5;
-const int writeBit2 = 4;
+ int writeBit0 = D0;
+ int writeBit1 = D1;
+ int writeBit2 = D2;
 
 int b0;
 int b1; 
@@ -108,6 +108,19 @@ void sendBinary(){
   digitalWrite(writeBit0, b0);
   digitalWrite(writeBit1, b1);
   digitalWrite(writeBit2, b2);
+  Serial.print(b0);
+  Serial.print(b1);
+  Serial.println(b2);
+}
+
+void setBinary(int a, int b, int c){
+  b0 = a;
+  b1 = b;
+  b2 = c;
+  Serial.print(b0);
+  Serial.print(b1);
+  Serial.println(b2);
+
 }
 
 void handle_curtain_up(){
@@ -116,11 +129,7 @@ void handle_curtain_up(){
   analogVAL = 0;
   //analogWrite(AnalogPin, 0);
   //Serial.println(analogRead(AnalogPin));
-  b0 = 1;
-  b1 = 1;
-  b2 = 1;
-
-    
+  setBinary(0,0,1);  
   server.send(200, "text/html", SendHTML(true,LED1status)); 
 }
 
@@ -128,9 +137,8 @@ void handle_curtain_down(){
   LED1status = LOW;
   Serial.println("GPIO7 Status: OFF");
   analogVAL = 200;
-  b0 = 0;
-  b1 = 0;
-  b2 = 0;
+
+  setBinary(1,1,1);  
   //analogWrite(AnalogPin, analogVAL);
   
   
@@ -141,10 +149,11 @@ void handle_curtain_down(){
 
 void setup() {
   delay(1000);
-  pinMode(BIT0, OUTPUT);
-  pinMode(BIT1, OUTPUT);
-  pinMode(BIT2, OUTPUT);
-
+  pinMode(D0, OUTPUT);
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
   
   Serial.begin(115200);
   Serial.println();
@@ -228,6 +237,7 @@ void loop() {
   //delay(1000);
   //analogVAL = 200;
   //Serial.println("Analog val : "+ analogVAL);
+  
   sendBinary();
   
   //Serial.println(analogRead(AnalogPin));
@@ -237,12 +247,7 @@ void loop() {
   //HTTP
   server.handleClient();
 
-  if(LED1status)
-  {
-    digitalWrite(LED1pin, HIGH);
-  }
-  else
-  {
-    digitalWrite(LED1pin, LOW);
-  }
+
+  
+
 }
