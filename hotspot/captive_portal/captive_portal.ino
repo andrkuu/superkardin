@@ -84,11 +84,22 @@ String SendHTML(uint8_t led1stat,uint8_t led2stat){
   ptr +="</head>\n";
   ptr +="<body>\n";
   ptr +="<h1>Mingisugune kaardin</h1>\n";
-  
-   if(led1stat)
-  {ptr +="<a class=\"button button-off\" href=\"/curtain_down\">Ülesse</a>\n";}
-  else
-  {ptr +="<a class=\"button button-on\" href=\"/curtain_up\">Alla</a>\n";}
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_0_0_0\">0 0 0</a>\n";
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_0_0_1\">0 0 1</a>\n";
+ 
+  ptr +="<a class=\"button button-on\" href=\"/handle_0_1_0\">0 1 0</a>\n";
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_0_1_1\">0 1 1</a>\n";
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_1_0_0\">1 0 0</a>\n";
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_1_0_1\">1 0 1</a>\n";
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_1_1_0\">1 1 0</a>\n";
+
+  ptr +="<a class=\"button button-on\" href=\"/handle_1_1_1\">1 1 1</a>\n";
 
   ptr +="</body>\n";
   ptr +="</html>\n";
@@ -123,6 +134,8 @@ void setBinary(int a, int b, int c){
 
 }
 
+
+
 void handle_curtain_up(){
   LED1status = HIGH;
   Serial.println("GPIO7 Status: ON");
@@ -145,6 +158,38 @@ void handle_curtain_down(){
   server.send(200, "text/html", SendHTML(false,LED1status)); 
 }
 
+void handle_0_0_0(){
+  setBinary(0,0,0);   
+}
+
+void handle_0_0_1(){
+  setBinary(0,0,1);   
+}
+
+void handle_0_1_0(){
+  setBinary(0,1,0);   
+}
+
+void handle_0_1_1(){
+  setBinary(0,1,1);   
+}
+
+void handle_1_0_0(){
+  setBinary(1,0,0);   
+}
+
+void handle_1_0_1(){
+  setBinary(1,0,1);   
+}
+
+void handle_1_1_0(){
+  setBinary(1,1,0);   
+}
+
+
+void handle_1_1_1(){
+  setBinary(1,1,1);   
+}
 
 
 void setup() {
@@ -170,6 +215,17 @@ void setup() {
   dnsServer.start(DNS_PORT, "*", apIP);
 
   /* Setup web pages: root, wifi config pages, SO captive portal detectors and not found. */
+
+  server.on("/handle_0_0_0", handle_0_0_0);
+  server.on("/handle_0_0_1", handle_0_0_1);
+  server.on("/handle_0_1_0", handle_0_1_0);
+  server.on("/handle_0_1_1", handle_0_1_1);
+  server.on("/handle_1_0_0", handle_1_0_0);
+  server.on("/handle_1_0_1", handle_1_0_1);
+  server.on("/handle_1_1_0", handle_1_1_0);
+  server.on("/handle_1_1_1", handle_1_1_1);
+
+
   server.on("/", captivePortal);
   server.on("/curtain_up", handle_curtain_up);
   server.on("/curtain_down", handle_curtain_down);
