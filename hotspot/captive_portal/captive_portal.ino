@@ -67,11 +67,12 @@ int b2;
 
 int analogVAL = 0;
 
+int delayVal = 0;
 
 String SendHTML(uint8_t led1stat,uint8_t led2stat){
   String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
-  ptr +="<title>LED Control</title>\n";
+  ptr +="<title>Kaardin</title>\n";
   ptr +="<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}\n";
   ptr +="body{margin-top: 50px;} h1 {color: #444444;margin: 50px auto 30px;} h3 {color: #444444;margin-bottom: 50px;}\n";
   ptr +=".button {display: block;width: 80px;background-color: #1abc9c;border: none;color: white;padding: 13px 30px;text-decoration: none;font-size: 25px;margin: 0px auto 35px;cursor: pointer;border-radius: 4px;}\n";
@@ -116,21 +117,39 @@ boolean captivePortal() {
 }
 
 void sendBinary(){
+
+  //Serial.print(b0);
+  //Serial.print(b1);
+  //Serial.println(b2);
+  delay(500);
   digitalWrite(writeBit0, b0);
   digitalWrite(writeBit1, b1);
-  digitalWrite(writeBit2, b2);
-  Serial.print(b0);
-  Serial.print(b1);
-  Serial.println(b2);
+  digitalWrite(writeBit2, b2); 
+  /*
+  if (delayVal <= 1) {
+    
+    Serial.print(b0);
+    Serial.print(b1);
+    Serial.println(b2);
+    delayVal++;
+  }
+  else
+  {
+    b0 = 0;
+    b1 = 0;
+    b2 = 0;
+    delayVal=0;
+  }*/
+  
 }
 
 void setBinary(int a, int b, int c){
   b0 = a;
   b1 = b;
   b2 = c;
-  Serial.print(b0);
-  Serial.print(b1);
-  Serial.println(b2);
+  //Serial.print(b0);
+  //Serial.print(b1);
+  //Serial.println(b2);
 
 }
 
@@ -293,17 +312,17 @@ void loop() {
   //delay(1000);
   //analogVAL = 200;
   //Serial.println("Analog val : "+ analogVAL);
-  
+
   sendBinary();
+
   
-  //Serial.println(analogRead(AnalogPin));
-  
-  //DNS
+    //DNS
   dnsServer.processNextRequest();
   //HTTP
   server.handleClient();
-
-
+ 
+  
+  //Serial.println(analogRead(AnalogPin));
   
 
 }
