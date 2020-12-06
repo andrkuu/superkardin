@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superuloo</title>
+    <style>
+        #title{
+            width: 100%;
+            height: 10%;
+            background-color: rgb(161, 161, 161);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            top: 0;
+            color: white;
+            font-size: 10vw;
+            text-align: center;
+            line-height: 10vh;
+            border-radius: 5px; 
+        }
+        #stop{
+            width: 80%;
+            height: 10%;
+            background-color: brown;
+            position: absolute;
+            bottom: 5%;
+            left: 10%;
+            color: white;
+            font-size: 10vw;
+            text-align: center;
+            line-height: 10vh;
+            border-radius: 15px;
+        }
+        .modes{
+            margin-top: 25%;
+            width: 50%;
+            height: 80%;
+            float: left;
+        }
+        #light_img{
+            width: 80%;
+            margin-left: 5%;
+            margin-bottom: 10% ;
+            background-color: rgb(228, 228, 228);
+            border-radius: 15px;
+        }
+
+        #arrow{
+            width: 80%;
+            margin-left: 5%;
+            margin-bottom: 10% ;
+            border-radius: 15px;
+        }
+        .move{
+            margin-top: 25%;
+            width: 50%;
+            height: 80%;
+            float: right;
+        }
+
+        @media only screen and (min-width: 700px) {
+            #light_img{
+                width: 50%;
+                margin-left: 25%;
+            }
+            #arrow{
+                width: 50%;
+                margin-left: 25%;
+            }
+            @media only screen and (min-width: 1000px) {
+
+                #light_img{
+                    width: 20%;
+                    margin-left: 5%;
+                }
+                #arrow{
+                    width: 20%;
+                    margin-left: 5%;
+                }
+                #title{
+                    font-size: 4vw;
+                }
+                .modes{
+                    margin-top: 12%;
+                }
+                .move{
+                    margin-top: 12%;
+                }
+                #stop{
+                    font-size: 4vw;
+                }
+          }
+      </style>
+</head>
+<body>
+    <script language="javascript" type="text/javascript">
+        function chngimg() {
+            var img = document.getElementById('lights').src;
+            if (img.indexOf('gold.png')!=-1) {
+                document.getElementById('lights').src  = 'img/red.png';
+            }
+             else {
+               document.getElementById('lights').src = 'img/gold.png';
+           }
+    
+        }
+    </script>
+    <div id="title">SupeRuloo</div>
+    <div class="modes">
+        <a href=""> <img id="light_img" src="img/none.png" alt="Light sensor off"/></a>
+        <a href=""> <img id="light_img" src="img/half.png" alt="Light sensor off"/></a>
+        <a href=""> <img id="light_img" src="img/blind.png" alt="Light sensor off"/></a>
+    </div>
+
+    <div class="move">
+        <a href=""> <img id="arrow" src="img/up.png" alt="Light sensor off"/></a>
+        <a href=""> <img id="arrow" src="img/down.png" alt="Light sensor off"/></a>
+        <a href=""> <img id="arrow" src="img/gold.png" alt="Light sensor off"/></a>
+    </div>
+        
+    <a href=""><div id="stop">STOP</div></a>
+    
+</body>
+</html>
